@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Irrigação Inteligente</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #2e7d32;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .info {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    .valor {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .status-ok {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-seco {
+      color: red;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background: #4caf50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🌱 Irrigação</h1>
+
+  <select id="plantas"></select>
+
+  <div class="info">Planta: <span id="planta" class="valor"></span></div>
+  <div class="info">Umidade: <span id="umidade" class="valor"></span>%</div>
+  <div class="info">Ideal: <span id="ideal" class="valor"></span></div>
+  <div class="info">Status: <span id="status" class="valor"></span></div>
+
+  <button onclick="regar()">💧 Regar Manualmente</button>
+</div>
+
+<script>
+function carregarPlantas() {
+  fetch("/plantas")
+  .then(r => r.json())
+  .then(data => {
+    const select = document.getElementById("plantas");
+
+    for (let p in data) {
+      let opt = document.createElement("option");
+      opt.value = p;
+      opt.text = p;
+      select.appendChild(opt);
+    }
+  });
+}
+
+document.getElementById("plantas").addEventListener("change", (e) => {
+  fetch("/planta", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ planta: e.target.value })
+  });
+});
+
+function atualizar() {
+  fetch("/status")
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById("planta").innerText = data.planta || "--";
+    document.getElementById("umidade").innerText = data.umidade ?? 0;
+    document.getElementById("ideal").innerText = data.ideal || "--";
+
+    const statusEl = document.getElementById("status");
+    statusEl.innerText = data.status || "--";
+
+    // muda cor do status
+    statusEl.className = "valor " + (data.status === "SECO" ? "status-seco" : "status-ok");
+  });
+}
+
+function regar() {
+  fetch("/regar", { method: "POST" });
+}
+
+carregarPlantas();
+atualizar();
+setInterval(atualizar, 2000);
+</script>
+
+</body>
+</html>

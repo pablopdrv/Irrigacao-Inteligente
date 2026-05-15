@@ -10,26 +10,26 @@ let plantaAtual = "alface";
 
 // 🌱 Faixas reais (%)
 const plantas = {
-  alface: { min: 60, max: 80 },
-  tomate: { min: 60, max: 70 },
-  cebolinha: { min: 60, max: 70 },
-  coentro: { min: 60, max: 70 },
-  rucula: { min: 60, max: 80 },
-  couve: { min: 60, max: 70 },
-  espinafre: { min: 60, max: 80 },
-  cenoura: { min: 65, max: 75 },
-  beterraba: { min: 65, max: 75 },
-  pepino: { min: 70, max: 80 },
-  abobrinha: { min: 70, max: 80 },
-  pimentao: { min: 65, max: 75 },
-  manjericao: { min: 55, max: 65 },
-  hortela: { min: 70, max: 80 },
-  salsinha: { min: 60, max: 70 },
-  milho: { min: 50, max: 60 },
-  feijao: { min: 50, max: 60 },
+  alface: { min: 30, max: 45 },
+  tomate: { min: 20, max: 60 },
+  cebolinha: { min: 12, max: 34 },
+  coentro: { min: 26, max: 49 },
+  rucula: { min: 32, max: 72 },
+  couve: { min: 42, max: 63 },
+  espinafre: { min: 15, max: 32 },
+  cenoura: { min: 21, max: 48 },
+  beterraba: { min: 34, max: 55 },
+  pepino: { min: 23, max: 47 },
+  abobrinha: { min: 30, max: 65 },
+  pimentao: { min: 15, max: 48 },
+  manjericao: { min: 15, max: 40 },
+  hortela: { min: 15, max: 35 },
+  salsinha: { min: 24, max: 58  },
+  milho: { min: 32, max: 48 },
+  feijao: { min: 27, max: 55 },
   girassol: { min: 40, max: 50 },
-  almeirao: { min: 60, max: 70 },
-  repolho: { min: 70, max: 80 }
+  almeirao: { min: 30, max: 40 },
+  repolho: { min: 31, max: 50 }
 };
 
 // Recebe do ESP32
